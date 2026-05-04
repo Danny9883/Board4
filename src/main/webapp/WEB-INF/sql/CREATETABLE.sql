@@ -55,6 +55,53 @@ CREATE TABLE  TUSER (
    , REGDATE   DATE          DEFAULT SYSDATE
 );
 
+----------------------------------------
+-- 멀티 게시판 정보
+
+CREATE  TABLE  BOARD (
+      IDX      NUMBER(8, 0)    PRIMARY KEY
+    , MENU_ID  VARCHAR2(6)     
+        REFERENCES  MENUS ( MENU_ID )
+    , TITLE    VARCHAR2(300)   NOT NULL
+    , CONTENT  VARCHAR2(4000)
+    , WRITER   VARCHAR2(12)
+    , REGDATE  DATE            DEFAULT  SYSDATE
+    , HIT      NUMBER(9, 0)    DEFAULT  0
+);
+
+
+INSERT INTO board (
+    idx,
+    menu_id,
+    title,
+    content,
+    writer
+) VALUES (
+    (SELECT  NVL(MAX(IDX),0)+1 FROM BOARD) ,
+    'MENU02',
+    'jsp Hello',
+    'JSP 게시판에 오신것을 환영합니다',
+    'jsp'
+);
+
+
+COMMIT;
+
+
+SELECT
+    IDX,
+    MENU_ID,
+    TITLE,
+    WRITER,
+    TO_CHAR(REGDATE,'YYYY-MM-DD') REGDATE,
+    HIT
+FROM
+    BOARD
+WHERE 
+    MENU_ID = 'MENU01'
+ORDER BY 
+    IDX DESC;
+
 
 
 
