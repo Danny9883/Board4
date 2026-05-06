@@ -18,7 +18,7 @@ public class HomeController {
 	// http://localhost:8080
 	@RequestMapping("/")
 	public  String  home( ) {
-		System.out.println("Borad 4 첫페이지 실행");
+		// System.out.println("Borad 4 첫페이지 실행");
 		return  "home";   // jsp 파일을 찾는다
 		                  // /WEB-INF/views/home.jsp
 	}
