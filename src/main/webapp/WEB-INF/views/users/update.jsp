@@ -48,7 +48,7 @@
 				</tr>				
 				<tr>
 					<td><span class="red">*</span>이전 비밀번호 확인</td>
-					<td><input type="password"  id="passwdold" /></td>
+					<td><input type="password"  name="oldpwd" id="passwdold" /></td>
 				</tr>
 				<tr>
 					<td><span class="red">*</span>새 비밀번호</td>

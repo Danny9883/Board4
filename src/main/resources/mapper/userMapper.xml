@@ -78,14 +78,31 @@
 	
 	</delete>
 	
-	<!-- 사용자 수정 -->
+	
+	<!-- 사용자 수정 : oldpwd -> arg0, param1 -->
 	<update id="updateUser">
+	
+	UPDATE  TUSER
+	 SET    PASSWD    = #{ userDto.passwd },
+	        USERNAME  = #{ userDto.username },
+	        EMAIL     = #{ userDto.email }
+	 WHERE  USERID    = #{ userDto.userid }
+	  AND   PASSWD    = #{ oldpwd }
+	
+	</update>
+	
+	
+	<!-- 사용자 수정 : map , 
+	        passwd (작동)
+	        map.passwd (오류발생) -->
+	<update id="updateUser2">
 	
 	UPDATE  TUSER
 	 SET    PASSWD    = #{ passwd },
 	        USERNAME  = #{ username },
 	        EMAIL     = #{ email }
 	 WHERE  USERID    = #{ userid }
+	  AND   PASSWD    = #{ oldpwd }
 	
 	</update>
 	
