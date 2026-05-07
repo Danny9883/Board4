@@ -40,7 +40,7 @@ public class BoardController {
 		ModelAndView  mv  = new ModelAndView();
 		mv.setViewName("board/list");
 		mv.addObject("menuList", menuList);
-		mv.addObject("boardList", boardList);
+		mv.addObject("bList", boardList);
 		
 		return  mv;
 	}
@@ -68,6 +68,34 @@ public class BoardController {
 		
 		return  mv;
 	}
+	
+	
+	// /Board/WriteForm
+	@RequestMapping("/WriteForm")
+	public  ModelAndView  writeForm( BoardDto boardDto ) {
+		// System.out.println("/WriteForm ? : "+boardDto);
+		
+		String menu_id = boardDto.getMenu_id();
+		
+		ModelAndView  mv  = new ModelAndView();
+		mv.setViewName("board/write");
+		mv.addObject("menu_id", menu_id );
+		return  mv;
+	}
+	
+	// /Board/Write?menu_id=MENU01&title=a&content=a&writer=a
+	@RequestMapping("/Write")
+	public  ModelAndView  write( BoardDto boardDto ) {
+		
+		String menu_id = boardDto.getMenu_id();
+		
+		// db 저장
+		
+		// 페이지 이동
+		ModelAndView  mv  = new ModelAndView(); 
+		mv.setViewName("redirect:/Board/List?menu_id=" + menu_id );
+		return  mv;
+	}	
 	
 	
 
