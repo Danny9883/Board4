@@ -113,6 +113,48 @@ public class BoardController {
 		return  mv;
 	}	
 	
+	// /Board/Delete?idx=${board.idx}&menu_id=${board.menu_id}
+	@RequestMapping("/Delete")
+	public  ModelAndView  delete( BoardDto boardDto ) {
+		
+		String menu_id = boardDto.getMenu_id();
+		
+		// 게시글 삭제
+		boardMapper.deleteBoard( boardDto );
+		
+		ModelAndView  mv  = new ModelAndView();
+		mv.setViewName("redirect:/Board/List?menu_id=" + menu_id );
+		return  mv;
+	}
+	
+	
+	// /Board/UpdateForm?idx=${board.idx}&menu_id=${board.menu_id}
+	@RequestMapping("/UpdateForm")
+	public  ModelAndView  updateForm( BoardDto boardDto ) {
+		// 메뉴 목록 조회 
+		List<MenuDTO> menuList  = menuMapper.getMenuList();
+		
+		BoardDto  board   = boardMapper.getBoard( boardDto );
+		
+		ModelAndView  mv  = new ModelAndView();
+		mv.setViewName("board/update");
+		mv.addObject("menuList", menuList);
+		mv.addObject("board", board);
+		return  mv;
+	}
+	
+	// /Board/Update
+	@RequestMapping("/Update")
+	public  ModelAndView  update( BoardDto boardDto ) {
+		
+		// 게시글 수정
+		boardMapper.updateBoard( boardDto );
+		
+		ModelAndView  mv  = new ModelAndView();
+		mv.setViewName("redirect:/Board/View?idx=" + boardDto.getIdx() );
+		return  mv;
+	}
+	
 	
 
 	
