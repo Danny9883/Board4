@@ -37,10 +37,21 @@ public class BoardController {
 		List<BoardDto> boardList  = boardMapper.getBoardList(menuDto);
 		log.info("boardList: " + boardList);
 		
+		// 넘어온 menu_id
+		String  menu_id   = menuDto.getMenu_id();
+		
+		String  menu_name = "";
+		for (MenuDTO menu : menuList) {
+			if (menu.getMenu_id().equals( menu_id ) )
+				menu_name = menu.getMenu_name();
+		}
+		
 		ModelAndView  mv  = new ModelAndView();
 		mv.setViewName("board/list");
 		mv.addObject("menuList", menuList);
 		mv.addObject("bList", boardList);
+		mv.addObject("menu_id", menu_id );
+		mv.addObject("menu_name", menu_name );
 		
 		return  mv;
 	}
@@ -73,12 +84,14 @@ public class BoardController {
 	// /Board/WriteForm
 	@RequestMapping("/WriteForm")
 	public  ModelAndView  writeForm( BoardDto boardDto ) {
-		// System.out.println("/WriteForm ? : "+boardDto);
+		// 메뉴 목록 조회 
+		List<MenuDTO> menuList  = menuMapper.getMenuList();
 		
 		String menu_id = boardDto.getMenu_id();
 		
 		ModelAndView  mv  = new ModelAndView();
 		mv.setViewName("board/write");
+		mv.addObject("menuList", menuList);
 		mv.addObject("menu_id", menu_id );
 		return  mv;
 	}
@@ -86,10 +99,13 @@ public class BoardController {
 	// /Board/Write?menu_id=MENU01&title=a&content=a&writer=a
 	@RequestMapping("/Write")
 	public  ModelAndView  write( BoardDto boardDto ) {
-		
-		String menu_id = boardDto.getMenu_id();
+		// System.out.println("/Write ? : " + boardDto);
+		// /Write ? : BoardDto(idx=0, menu_id=MENU01, title=1, content=2, writer=3, regdate=null, hit=0)
 		
 		// db 저장
+		boardMapper.insertBoard( boardDto );
+		
+		String menu_id = boardDto.getMenu_id();
 		
 		// 페이지 이동
 		ModelAndView  mv  = new ModelAndView(); 

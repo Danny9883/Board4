@@ -61,7 +61,7 @@
 	<main>
 		<%@include file="/WEB-INF/include/menus.jsp" %>
 		
-	  <h2> 게시물 목록 </h2>
+	  <h2> ${ menu_name } 게시물 목록 </h2>
 		<table id="list" class="table table-hover">
 			<tr>
 				<td>글 번호</td>
@@ -72,7 +72,7 @@
 			</tr>
 			<tr>
 				<td colspan="5">
-					[<a href="/Board/WriteForm?menu_id=${param.menu_id}">새 글 등록</a>]&nbsp;&nbsp;&nbsp;
+					[<a href="/Board/WriteForm?menu_id=${menu_id}">새 글 등록</a>]&nbsp;&nbsp;&nbsp;
 					[<a href="/">Home</a>]
 				</td>
 			</tr>
