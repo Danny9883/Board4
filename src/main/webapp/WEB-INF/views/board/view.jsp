@@ -78,6 +78,10 @@
   #table1	tr:nth-of-type(4){
   	height: 400px;
   	td {border-bottom: 1px solid black;}
+  	td:nth-of-type(2) {
+  			text-align: left;
+  			vertical-align: baseline;
+  		}
   }
 	
 	.menu td> .${ board.menu_id } {background-color: #04AA6D;}
@@ -104,7 +108,7 @@
 <body>
 	<main>
 	<%@include file="/WEB-INF/include/menus.jsp" %>
-		<h2>게시글 내용 보기</h2>
+		<h2>${ menu_name } 게시글 내용 보기</h2>
 		<table id="table1">
 			<tr>
 				<td>글 번호</td>

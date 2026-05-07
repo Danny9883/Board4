@@ -38,20 +38,17 @@ public class BoardController {
 		log.info("boardList: " + boardList);
 		
 		// 넘어온 menu_id
-		String  menu_id   = menuDto.getMenu_id();
+		String   menu_id   = menuDto.getMenu_id();
 		
-		String  menu_name = "";
-		for (MenuDTO menu : menuList) {
-			if (menu.getMenu_id().equals( menu_id ) )
-				menu_name = menu.getMenu_name();
-		}
+		MenuDTO  menu      = menuMapper.getMenu(menuDto);
+
 		
 		ModelAndView  mv  = new ModelAndView();
 		mv.setViewName("board/list");
 		mv.addObject("menuList", menuList);
 		mv.addObject("bList", boardList);
 		mv.addObject("menu_id", menu_id );
-		mv.addObject("menu_name", menu_name );
+		mv.addObject("menu", menu );
 		
 		return  mv;
 	}
@@ -66,16 +63,24 @@ public class BoardController {
 		// idx 글의 조회수를 1 증가
 		boardMapper.incHit( boardDto );
 		
+		String   menu_id   = boardDto.getMenu_id();
+		String   menu_name = menuMapper.getMenuName(menu_id);
+		
+		
 		// idx 로 조회한 게시글
 		BoardDto  board   = boardMapper.getBoard( boardDto );
 		// System.out.println("board : " + board);
 		// BoardDto [idx=1, menu_id=MENU01, title=JAVA Hello, content=자바 게시판에 오신것을 환영합니다, writer=java, regdate=2026-05-04 15:16:47, hit=0]
+		
+		// content 안에 있는 엔터 \n 를 <br> 로 변경 -> content
+		board.setContent( board.getContent().replace("\n", "<br>") );
 		
 		
 		ModelAndView  mv  = new ModelAndView();
 		mv.setViewName("board/view");
 		mv.addObject("menuList", menuList);
 		mv.addObject("board", board);
+		mv.addObject("menu_name", menu_name);
 		
 		return  mv;
 	}
@@ -87,12 +92,15 @@ public class BoardController {
 		// 메뉴 목록 조회 
 		List<MenuDTO> menuList  = menuMapper.getMenuList();
 		
-		String menu_id = boardDto.getMenu_id();
+		
+		String   menu_id   = boardDto.getMenu_id();
+		String   menu_name = menuMapper.getMenuName(menu_id);
 		
 		ModelAndView  mv  = new ModelAndView();
 		mv.setViewName("board/write");
 		mv.addObject("menuList", menuList);
 		mv.addObject("menu_id", menu_id );
+		mv.addObject("menu_name", menu_name );
 		return  mv;
 	}
 	
@@ -136,10 +144,14 @@ public class BoardController {
 		
 		BoardDto  board   = boardMapper.getBoard( boardDto );
 		
+		String   menu_id   = boardDto.getMenu_id();
+		String   menu_name = menuMapper.getMenuName(menu_id);
+		
 		ModelAndView  mv  = new ModelAndView();
 		mv.setViewName("board/update");
 		mv.addObject("menuList", menuList);
 		mv.addObject("board", board);
+		mv.addObject("menu_name", menu_name);
 		return  mv;
 	}
 	
@@ -147,11 +159,12 @@ public class BoardController {
 	@RequestMapping("/Update")
 	public  ModelAndView  update( BoardDto boardDto ) {
 		
+		
 		// 게시글 수정
 		boardMapper.updateBoard( boardDto );
 		
 		ModelAndView  mv  = new ModelAndView();
-		mv.setViewName("redirect:/Board/View?idx=" + boardDto.getIdx() );
+		mv.setViewName("redirect:/Board/View?idx=" + boardDto.getIdx()+"&menu_id="+boardDto.getMenu_id() );
 		return  mv;
 	}
 	

@@ -61,7 +61,7 @@
 	<main>
 		<%@include file="/WEB-INF/include/menus.jsp" %>
 		
-	  <h2> ${ menu_name } 게시물 목록 </h2>
+	  <h2> ${ menu.menu_name } 게시물 목록 </h2>
 		<table id="list" class="table table-hover">
 			<tr>
 				<td>글 번호</td>
@@ -81,7 +81,7 @@
 			<tr>
 				<td>${ board.idx } </td>
 				<td class="title">
-					<a href="/Board/View?idx=${board.idx}">${ board.title }</a>
+					<a href="/Board/View?idx=${board.idx}&menu_id=${menu.menu_id}">${ board.title }</a>
 				</td>
 				<td>${ board.writer } </td>
 				<td>${ board.regdate } </td>

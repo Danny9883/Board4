@@ -111,9 +111,10 @@
 <body>
 	<main>
 	<%@include file="/WEB-INF/include/menus.jsp" %>
-		<h2>게시글 수정</h2>
+		<h2>${ menu_name } 게시글 수정</h2>
 		<form action="/Board/Update" method="post">
 			<input type="hidden" name="idx" value="${ board.idx }"  />
+			<input type="hidden" name="menu_id" value="${ board.menu_id }"  />
 			<table id="table1">
 				<tr>
 					<td>글 번호</td>
@@ -138,7 +139,7 @@
 				<tr>
 					<td colspan="4">
 						<input type="submit" value="수정" class="btn btn-warning" />
-						<a href="/Board/View?idx=${board.idx}" class="btn btn-info">이전</a>
+						<a href="/Board/View?idx=${board.idx}&menu_id=${board.menu_id}" class="btn btn-info">이전</a>
 						<a href="/Board/List?menu_id=${board.menu_id}" class="btn btn-info">글 목록</a>
 						<a href="/" class="btn btn-success">Home</a>
 					</td>
