@@ -33,7 +33,7 @@
 				padding: 10px;
 				color: white;
 				background-color: black; 
-				&:hover {
+				&:hover, &.active {
 					text-decoration: none;
 					background-color: #04AA6D;
 					color: white;
@@ -41,6 +41,7 @@
 			}
 		}
 	}
+	
 	
 	
 	

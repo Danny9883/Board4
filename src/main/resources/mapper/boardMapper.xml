@@ -75,8 +75,9 @@
 	<!-- 게시글 삭제 -->
 	<delete id="deleteBoard">
 	
-	DELETE  BOARD
-	WHERE   IDX = #{idx}
+	DELETE 
+	 FROM   BOARD
+	 WHERE  IDX = #{idx}
 	
 	</delete>
 	

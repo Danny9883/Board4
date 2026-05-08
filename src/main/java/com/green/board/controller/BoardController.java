@@ -53,7 +53,7 @@ public class BoardController {
 		return  mv;
 	}
 	
-	// /Board/View?idx=1
+	// /Board/View?idx=1&menu_id=MENU01
 	@RequestMapping("/View")
 	public  ModelAndView  view( BoardDto boardDto ) {
 		
@@ -73,7 +73,8 @@ public class BoardController {
 		// BoardDto [idx=1, menu_id=MENU01, title=JAVA Hello, content=자바 게시판에 오신것을 환영합니다, writer=java, regdate=2026-05-04 15:16:47, hit=0]
 		
 		// content 안에 있는 엔터 \n 를 <br> 로 변경 -> content
-		board.setContent( board.getContent().replace("\n", "<br>") );
+		if (board.getContent() != null)
+			board.setContent( board.getContent().replace("\n", "<br>") );
 		
 		
 		ModelAndView  mv  = new ModelAndView();
@@ -81,6 +82,7 @@ public class BoardController {
 		mv.addObject("menuList", menuList);
 		mv.addObject("board", board);
 		mv.addObject("menu_name", menu_name);
+		mv.addObject("menu_id", menu_id);
 		
 		return  mv;
 	}
@@ -121,15 +123,17 @@ public class BoardController {
 		return  mv;
 	}	
 	
-	// /Board/Delete?idx=${board.idx}&menu_id=${board.menu_id}
+	// 게시물 삭제
+	// /Board/Delete?idx=1&menu_id=MENU01
 	@RequestMapping("/Delete")
 	public  ModelAndView  delete( BoardDto boardDto ) {
 		
-		String menu_id = boardDto.getMenu_id();
-		
-		// 게시글 삭제
+		// 게시글 삭제 (idx 에 해당하는)
 		boardMapper.deleteBoard( boardDto );
 		
+		String menu_id = boardDto.getMenu_id();
+		
+		// menu_id 해당 목록으로 돌아간다
 		ModelAndView  mv  = new ModelAndView();
 		mv.setViewName("redirect:/Board/List?menu_id=" + menu_id );
 		return  mv;
@@ -139,6 +143,7 @@ public class BoardController {
 	// /Board/UpdateForm?idx=${board.idx}&menu_id=${board.menu_id}
 	@RequestMapping("/UpdateForm")
 	public  ModelAndView  updateForm( BoardDto boardDto ) {
+		
 		// 메뉴 목록 조회 
 		List<MenuDTO> menuList  = menuMapper.getMenuList();
 		
@@ -152,6 +157,7 @@ public class BoardController {
 		mv.addObject("menuList", menuList);
 		mv.addObject("board", board);
 		mv.addObject("menu_name", menu_name);
+		mv.addObject("menu_id", menu_id);
 		return  mv;
 	}
 	
@@ -159,10 +165,10 @@ public class BoardController {
 	@RequestMapping("/Update")
 	public  ModelAndView  update( BoardDto boardDto ) {
 		
-		
 		// 게시글 수정
 		boardMapper.updateBoard( boardDto );
 		
+		// 수정후 목록으로 이동
 		ModelAndView  mv  = new ModelAndView();
 		mv.setViewName("redirect:/Board/View?idx=" + boardDto.getIdx()+"&menu_id="+boardDto.getMenu_id() );
 		return  mv;

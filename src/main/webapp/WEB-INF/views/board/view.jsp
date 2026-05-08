@@ -84,7 +84,6 @@
   		}
   }
 	
-	.menu td> .${ board.menu_id } {background-color: #04AA6D;}
 	
 	.menu tr:first-of-type {
 	background-color: black;

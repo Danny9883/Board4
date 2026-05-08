@@ -47,7 +47,6 @@
   	margin-bottom: 150px;
   }
 
-	.menu td> .${ param.menu_id } {background-color: #04AA6D;}
 	
 	.title { text-align: left; }
 	
@@ -81,7 +80,7 @@
 			<tr>
 				<td>${ board.idx } </td>
 				<td class="title">
-					<a href="/Board/View?idx=${board.idx}&menu_id=${menu.menu_id}">${ board.title }</a>
+					<a href="/Board/View?idx=${board.idx}&menu_id=${board.menu_id}">${ board.title }</a>
 				</td>
 				<td>${ board.writer } </td>
 				<td>${ board.regdate } </td>

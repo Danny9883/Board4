@@ -90,7 +90,6 @@
 	}
 
 	
-	.menu td> .${ board.menu_id } {background-color: #04AA6D;}
 	
 	.menu tr:first-of-type {
 	background-color: black;
@@ -130,7 +129,7 @@
 				</tr>
 				<tr>
 					<td>제목</td>
-					<td colspan="3"><input type="text" value="${ board.title }" name="title" /></td>
+					<td colspan="3"><input type="text" value="${ board.title }" name="title" required /></td>
 				</tr>
 				<tr>
 					<td>내용</td>
