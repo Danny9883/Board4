@@ -95,10 +95,6 @@
 	
 
 	
-	
-	
-	
-
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
@@ -107,7 +103,7 @@
 <body>
 	<main>
 	<%@include file="/WEB-INF/include/menus.jsp" %>
-		<h2>${ menu_name } 게시글 내용 보기</h2>
+		<h2 class="h2">${ menu_name } 게시글 내용 보기</h2>
 		<table id="table1">
 			<tr>
 				<td>글 번호</td>

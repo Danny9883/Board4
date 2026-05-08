@@ -80,13 +80,18 @@
   	td {border-bottom: 1px solid black;}
   }
   
- 	input[type="text"] {
+ 	input[name="title"] {
 		width: 100%;
 	}
 	
 	textarea {
 		width: 100%;
 		height: 300px; 		
+	}
+	
+	input[name="title"], 
+	textarea {
+		padding: 5px;
 	}
 
 	
@@ -110,7 +115,7 @@
 <body>
 	<main>
 	<%@include file="/WEB-INF/include/menus.jsp" %>
-		<h2>${ menu_name } 게시글 수정</h2>
+		<h2 class="h2">${ menu_name } 게시글 수정</h2>
 		<form action="/Board/Update" method="post">
 			<input type="hidden" name="idx" value="${ board.idx }"  />
 			<input type="hidden" name="menu_id" value="${ board.menu_id }"  />
